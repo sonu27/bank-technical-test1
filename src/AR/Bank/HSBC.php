@@ -2,22 +2,16 @@
 
 namespace AR\Bank;
 
-class HSBC implements BankInterface
+class HSBC extends BankCard
 {
-    private $cardNumberLengthWithDashes = 19;
-    private $unmaskedLengths = [0, 1];
 
-    public function getMaskedCardNumber($number)
+    public function __construct($number, \DateTime $expiryDate, \AR\Masker $masker)
     {
+        $masker->setMaskCharacter('x');
+        $masker->setUnmaskedIndexes([0, 1]);
+        $masker->setExcludedCharacters(['-']);
 
-        $numberArray = str_split($number);
-        foreach ($numberArray as $k => $v) {
-            if (!in_array($k, $this->unmaskedLengths) && is_numeric($v)) {
-                $numberArray[$k] = 'x';
-            }
-        }
-
-        return implode('',$numberArray);
+        parent::__construct($number, $expiryDate, $masker);
     }
 
 }
