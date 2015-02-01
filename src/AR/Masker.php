@@ -2,7 +2,7 @@
 
 namespace AR;
 
-class Masker
+class Masker implements MaskerInterface
 {
     private $maskCharacter;
     private $unmaskedIndexes;

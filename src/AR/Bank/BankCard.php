@@ -8,15 +8,15 @@ class BankCard
     private $expiryDate;
     private $masker;
 
-    public function __construct($number, \DateTime $expiryDate, $masker)
+    public function __construct($number, \DateTime $expiryDate, \AR\MaskerInterface $masker)
     {
         $this->number = $number;
         $this->expiryDate = $expiryDate;
         $this->masker = $masker;
     }
 
-    public function getMaskedNumber($number)
+    final public function getMaskedNumber()
     {
-        return $this->masker->mask($number);
+        return $this->masker->mask($this->number);
     }
 }
